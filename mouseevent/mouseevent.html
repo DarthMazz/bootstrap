@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>MouseMove HTML</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <!--
+    <link rel="icon" href="favicon.ico" id="favicon">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+    -->
+  </head>
+
+  <body>
+    <header>
+      Hello World!
+    </header>
+    <main>
+      <p><label><input type="checkbox" id="checkbox">チェック</label></p>
+      <p><button id="button">クリックすると MouseEvnet をチェックボックスに送信します</button></p>
+      <script>
+        function simulateClick() {
+          const cb = document.getElementById("checkbox");
+          let evt = new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+            view: window
+          });
+          cb.dispatchEvent(evt);
+        }
+        document.getElementById("button").addEventListener('click', simulateClick);
+      </script>
+
+      <h1>マウスイベントを使ったお絵かき</h1>
+      <canvas id="myPics" width="560" height="360"></canvas>
+      <style>
+        canvas {
+          border: 1px solid black;
+          width: 560;
+          height: 360;
+        }
+      </style>
+      <script>
+        let isDrawing = false;
+        let x = 0;
+        let y = 0;
+
+        const myPics = document.getElementById('myPics');
+        const context = myPics.getContext('2d');
+
+        myPics.addEventListener('mousedown', e => {
+          x = e.offsetX;
+          y = e.offsetY;
+          isDrawing = true;
+        });
+        myPics.addEventListener('mousemove', e => {
+          if (isDrawing === true) {
+            drawLine(context, x, y, e.offsetX, e.offsetY);
+            x = e.offsetX;
+            y = e.offsetY;
+          }
+        });
+        myPics.addEventListener('mouseup', e => {
+          if (isDrawing === true) {
+            drawLine(context, x, y, e.offsetX, e.offsetY);
+            x = 0;
+            y = 0;
+            isDrawing = false;
+          }
+        });
+
+        function drawLine(context, x1, y1, x2, y2) {
+          context.beginPath();
+          context.strokeStyle = 'black';
+          context.lineWidth = 1;
+          context.moveTo(x1, y1);
+          context.lineTo(x2, y2);
+          context.stroke();
+          context.closePath();
+        }
+      </script>      
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
