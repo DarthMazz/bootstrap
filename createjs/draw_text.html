@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Create JS -->
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <title>CreateJS HTML</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <!--
+    <link rel="icon" href="favicon.ico" id="favicon">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+    -->
+    <script>
+      window.addEventListener("load", init);
+
+      function init() {
+        const stage = new createjs.Stage("myCanvas");
+
+        const aligns = ["start", "end", "left", "right", "center"];
+
+        for (var i = 0; i < aligns.length; i++) {
+          // テキスト
+          const t = new createjs.Text(aligns[i].toUpperCase(), "48px sans-serif", "black");
+          t.textAlign = aligns[i];
+          stage.addChild(t);
+
+          // 線
+          const shape = new createjs.Shape();
+          shape.graphics
+            .setStrokeStyle(1)
+            .beginStroke("DarkRed")
+            .moveTo(-100, 0)
+            .lineTo(+100, 0)
+            .moveTo(0, -100)
+            .lineTo(0, +100);
+          stage.addChild(shape);
+
+          t.x = shape.x = (i % 3) * 300 + 150;
+          t.y = shape.y = Math.floor(i / 3) * 300 + 120;          
+        }
+
+        stage.update();
+
+        drawTextBaseLine();
+      }
+
+      function drawTextBaseLine() {
+        const stage = new createjs.Stage("myCanvas2");
+
+        const baseLines = ["top", "hanging", "middle", "alphabetic", "ideographics", "bottom"];
+
+        for (var i = 0; i < baseLines.length; i++) {
+          const t = new createjs.Text(baseLines[i].toUpperCase(), "32px sans-serif", "#000000");
+          t.textBaseline = baseLines[i];
+          stage.addChild(t);
+
+          const shape = new createjs.Shape();
+          shape.graphics
+            .setStrokeStyle(1)
+            .beginStroke("#FF0000")
+            .moveTo(0, 0)
+            .lineTo(+100, 0)
+            .moveTo(0, -50)
+            .lineTo(0, 50);
+          stage.addChild(shape);
+
+          t.x = shape.x = (i % 3) * 300 + 100;
+          t.y = shape.y = Math.floor(i / 3) * 300 + 120;
+        }
+
+        stage.update();
+      }
+    </script>
+  </head>
+
+  <body>
+    <header>
+    </header>
+    <main>
+      <canvas id="myCanvas" width="960" height="540"></canvas>
+      <canvas id="myCanvas2" width="960" height="540"></canvas>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

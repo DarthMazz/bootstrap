@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Create JS -->
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <title>CreateJS HTML</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <!--
+    <link rel="icon" href="favicon.ico" id="favicon">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+    -->
+    <script>
+      window.addEventListener("load", init);
+
+      function init() {
+        // Stageオブジェクト作成
+        const stage = new createjs.Stage("myCanvas");
+
+        // 円を作成
+        const shape = new createjs.Shape();
+        shape.graphics.beginFill("DarkRed");
+        shape.graphics.drawCircle(0, 0, 100);
+        shape.graphics.endFill();
+        shape.x = 200;
+        shape.y = 100;
+        stage.addChild(shape);
+
+        stage.update();
+
+        drawRect();
+        drawRect2();
+        drawPoly();
+        drawFillLine();
+      }
+
+      function drawRect() {
+        var stage = new createjs.Stage("myCanvas2");
+
+        const shape = new createjs.Shape();
+        shape.graphics.beginFill("DarkRed");
+        shape.graphics.drawRect(0, 0, 200, 100);
+        shape.x = 100;
+        shape.y = 50;        
+        stage.addChild(shape);
+
+        stage.update();
+      }
+
+      function drawRect2(){
+        const stage = new createjs.Stage("myCanvas3");
+
+        const shape = new createjs.Shape();
+        shape.graphics.beginFill("DarkRed");
+        shape.graphics.drawRoundRect(0, 0, 100, 100, 20, 20);
+        shape.x = 100;
+        shape.y = 50;
+        stage.addChild(shape);
+
+        stage.update();
+      }
+
+      function drawPoly() {
+        const stage = new createjs.Stage("myCanvas4");
+
+        const shape = new createjs.Shape();
+        shape.graphics.beginFill("DarkRed");
+        shape.graphics.drawPolyStar(0, 0, 75, 5, 0.6, -90);
+        shape.x = 100;
+        shape.y = 100;
+        stage.addChild(shape);
+
+        stage.update();
+      }
+
+      function drawFillLine() {
+        const stage = new createjs.Stage("myCanvas5");
+
+        const shape = new createjs.Shape();
+        shape.graphics.beginFill("DarkRed");
+        shape.graphics.moveTo(0, 0);
+        shape.graphics.lineTo(100, 0);
+        shape.graphics.lineTo(0, 100);
+        shape.graphics.lineTo(0, 0);
+        shape.x = 100;
+        shape.y = 50;
+        stage.addChild(shape);
+
+        stage.update();
+      }
+ 
+    </script>
+  </head>
+
+  <body>
+    <header>
+    </header>
+    <main>
+      <canvas id="myCanvas" width="640" height="200"></canvas>
+      <canvas id="myCanvas2" width="640" height="200"></canvas>
+      <canvas id="myCanvas3" width="640" height="200"></canvas>
+      <canvas id="myCanvas4" width="640" height="200"></canvas>
+      <canvas id="myCanvas5" width="640" height="200"></canvas>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
