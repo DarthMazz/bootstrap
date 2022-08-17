@@ -19,16 +19,34 @@
       function init() {
         const stage = new createjs.Stage("myCanvas");
 
-        const bmp = new createjs.Bitmap("./img/preview-00001_300.jpg");
+        const container = new createjs.Container();
+        stage.addChild(container);
 
-        bmp.scaleX = 0.25;
-        bmp.scaleY = 0.25;
-        stage.addChild(bmp);
+        const circleRed = new createjs.Shape();
+        circleRed.graphics.beginFill("DarkRed").drawCircle(40, 40, 40);
 
-        createjs.Ticker.on("tick", function() {
+        const circleGreen = new createjs.Shape();
+        circleGreen.graphics.beginFill("green").drawCircle(170, 40, 40);
+
+        container.addChild(circleRed);
+        container.addChild(circleGreen);
+
+        circleRed.addEventListener("click", handleRedClick);
+        circleGreen.addEventListener("click", handleGreenClick);
+
+        function handleRedClick(event) {
+          container.removeChild(circleRed);
+        }
+
+        function handleGreenClick(event) {
+          container.removeChild(circleGreen);
+        }
+
+        createjs.Ticker.addEventListener("tick", stage);
+
+        function handleTick() {
           stage.update();
-        });
-
+        }
       }
     </script>
   </head>
@@ -37,7 +55,11 @@
     <header>
     </header>
     <main>
-      <canvas id="myCanvas" width="512" height="960"></canvas>
+      <canvas id="myCanvas"
+              width="960"
+              height="540"
+              style="background:WhiteSmoke;">
+      </canvas>
     </main>
 
     <!-- Bootstrap JS -->
