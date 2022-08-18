@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Create JS -->
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <title>CreateJS HTML</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <!--
+    <link rel="icon" href="favicon.ico" id="favicon">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+    -->
+    <script>
+      window.addEventListener("load", init);
+
+      function init() {
+        const stage = new createjs.Stage("myCanvas");
+
+        // マウスオーバーを有効化
+        stage.enableMouseOver();
+
+        const btn1 = createButton("Click Blue!", 150, 40, "#0275d8");
+        btn1.x = 50;
+        btn1.y = 80;
+        stage.addChild(btn1);
+
+        const btn2 = createButton("Click Red!", 150, 40, "#d9534f");
+        btn2.x = 240;
+        btn2.y = 80;
+        stage.addChild(btn2);
+
+        const btn3 = createButton("Click Green!", 150, 40, "#5cb85c");
+        btn3.x = 430;
+        btn3.y = 80;
+        stage.addChild(btn3);
+
+        // イベント登録
+        btn1.addEventListener("click", handleClick);
+        btn2.addEventListener("click", handleClick);
+        btn3.addEventListener("click", handleClick);
+        function handleClick(event) {
+          alert(event.currentTarget + " がクリックされました。")
+        }
+
+        createjs.Ticker.timingMode = createjs.Ticker.RAF;
+
+        // 時間経過イベント
+        createjs.Ticker.addEventListener("tick", handleTick);
+        function handleTick() {
+          stage.update();
+        }
+
+        
+        function createButton(text, width, height, keyColor) {
+          // ボタン要素をグループ化
+          const button = new createjs.Container();
+          button.name = text;
+          button.cursor = "pointer";  // ホバー時のカーソル変更
+
+          // ボタン枠作成
+          const bgUp = new createjs.Shape();
+          bgUp.graphics
+                .setStrokeStyle(1.0)
+                .beginStroke(keyColor)
+                .beginFill("white")
+                .drawRoundRect(0.5, 0.5, width - 1.0, height - 1.0, 4);
+          button.addChild(bgUp);
+          bgUp.visible = true;
+
+          // ロールオーバー時のボタン枠作成
+          const bgOver = new createjs.Shape();
+          bgOver.graphics
+                  .beginFill(keyColor)
+                  .drawRoundRect(0, 0, width, height, 4);
+          button.addChild(bgOver);
+          bgOver.visible = false;
+
+          // ラベル作成
+          const label = new createjs.Text("Button", "18px sans-serif", keyColor);
+          label.x = width / 2;
+          label.y = height / 2;
+          label.textAlign = "center";
+          label.textBaseline = "middle";
+          button.addChild(label);
+
+          // イベントを登録
+          button.addEventListener("mouseover", (event) => {
+            bgUp.visible = false;
+            bgOver.visible = true;
+            label.color = "white";
+          });
+
+          button.addEventListener("mouseout", (event) => {
+            bgUp.visible = true;
+            bgOver.visible = false;
+            label.color = keyColor;
+          });
+
+          return button;
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <header>
+    </header>
+    <main>
+      <canvas id="myCanvas"
+              width="640"
+              height="200"
+              style="background:WhiteSmoke;">
+      </canvas>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
